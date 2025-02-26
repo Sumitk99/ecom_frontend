@@ -1,0 +1,35 @@
+<div class="search-container">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search Products</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="Enter product name">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading products...</p>
+  </div>
+
+  <div *ngIf="error && !loading" class="error">
+    <p>{{error}}</p>
+  </div>
+
+  <mat-grid-list cols="4" rowHeight="300px" gutterSize="16px" *ngIf="!loading && !error && products.length > 0">
+    <mat-grid-tile *ngFor="let product of products">
+      <mat-card class="product-card">
+        <img mat-card-image [src]="product.imageURL" [alt]="product.title" class="product-image">
+        <mat-card-content>
+          <h3>{{product.title}}</h3>
+          <p>${{product.price.toFixed(2)}}</p>
+          <p>Sold by: {{product.sellerName}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="primary" (click)="viewDetails(product.productId)">View Details</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <div *ngIf="!loading && !error && products.length === 0" class="no-results">
+    <p>No products found.</p>
+  </div>
+</div>

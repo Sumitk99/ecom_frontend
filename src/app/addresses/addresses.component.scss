@@ -1,0 +1,92 @@
+.addresses-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #666;
+}
+
+.error {
+  text-align: center;
+  padding: 20px;
+  color: #d32f2f;
+  font-size: 16px;
+}
+
+.addresses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.address-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 220px; // Fixed height for uniformity
+
+  mat-card-content {
+    p {
+      font-size: 14px;
+      color: #555;
+      margin: 4px 0;
+
+      &:first-child {
+        font-weight: 500;
+        color: #333;
+      }
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0 0;
+  }
+}
+
+.add-card {
+  background-color: #f5f5f5;
+  text-align: center;
+
+  .add-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    mat-icon {
+      font-size: 40px;
+      width: 40px;
+      height: 40px;
+      color: #1976d2;
+    }
+
+    p {
+      font-size: 16px;
+      color: #666;
+      margin-top: 8px;
+    }
+  }
+
+  &:hover {
+    background-color: #ececec;
+  }
+}

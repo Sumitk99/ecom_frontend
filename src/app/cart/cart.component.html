@@ -1,0 +1,49 @@
+<div class="cart-container">
+  <h1 class="page-title">Your Cart</h1>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading cart...</p>
+  </div>
+
+  <div *ngIf="error && !loading" class="error">
+    <p>{{error}}</p>
+  </div>
+
+  <div *ngIf="cart && !loading && !error" class="cart-content">
+    <div class="items-grid">
+      <mat-card *ngFor="let item of cart.items" class="item-card mat-elevation-z2">
+        <div class="item-layout">
+          <img [src]="item.imageURL" [alt]="item.title" class="item-image" (click)="viewProduct(item.productId)">
+          <mat-card-content class="item-details">
+            <h3 (click)="viewProduct(item.productId)" class="clickable-title">{{item.title}}</h3>
+            <p>Price: ${{item.price.toFixed(2)}}</p>
+            <p>Seller: {{item.sellerId}}</p>
+            <p>Subtotal: ${{(item.price * item.quantity).toFixed(2)}}</p>
+            <div class="quantity-controls">
+              <button mat-icon-button color="primary" (click)="adjustQuantity(item.productId, item.quantity - 1)">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <span class="quantity">{{item.quantity}}</span>
+              <button mat-icon-button color="primary" (click)="adjustQuantity(item.productId, item.quantity + 1)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button color="warn" (click)="removeItem(item.productId)">Remove</button>
+          </mat-card-actions>
+        </div>
+      </mat-card>
+    </div>
+
+    <mat-card class="total-card mat-elevation-z2">
+      <mat-card-content>
+        <h2>Total Price: ${{cart.totalPrice.toFixed(2)}}</h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="cart && !loading && !error && cart.items.length === 0" class="empty-cart">
+    <p>Your cart is empty.</p>
+  </div>
+</div>

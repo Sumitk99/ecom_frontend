@@ -1,0 +1,56 @@
+<div class="order-details-container">
+  <h1 class="page-title">Order Details</h1>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <p>Loading order details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error">
+    <p>{{error}}</p>
+  </div>
+
+  <!-- Order Details -->
+  <div *ngIf="order && !loading && !error" class="order-content">
+    <mat-card class="order-card mat-elevation-z2">
+      <mat-card-header>
+        <mat-card-title>Order ID : {{order.orderId}}</mat-card-title>
+        <mat-card-subtitle>Placed on {{order.createdAt}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="order-info">
+          <p><strong>Total Price :</strong> ${{order.totalPrice.toFixed(2)}}</p>
+          <p><strong>Payment Method :</strong> {{order.MethodOfPayment}}</p>
+          <p><strong>Payment Status :</strong> {{order.PaymentStatus}}</p>
+          <p><strong>Order Status : </strong> <span [ngClass]="{'status-placed': order.OrderStatus === 'Order Placed'}">{{order.OrderStatus}}</span></p>
+        </div>
+
+        <!-- Products -->
+        <h3>Products</h3>
+        <div class="products-grid">
+          <mat-card *ngFor="let product of order.products" class="product-card mat-elevation-z1">
+            <img mat-card-image [src]="product.imageURL" [alt]="product.name" class="product-image">
+            <mat-card-content>
+              <p><strong>{{product.name}}</strong></p>
+              <p>Price: ${{product.price.toFixed(2)}}</p>
+              <p>Quantity: {{product.quantity}}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <!-- Shipping Address -->
+        <h3>Shipping Address</h3>
+        <mat-card class="address-card mat-elevation-z1">
+          <mat-card-content>
+            <p>{{order.address.Name}}</p>
+            <p>{{order.address.Street}}, {{order.address.ApartmentUnit}}</p>
+            <p>{{order.address.City}}, {{order.address.State}} {{order.address.ZipCode}}</p>
+            <p>{{order.address.Country}}</p>
+            <p>Phone: {{order.address.Phone}}</p>
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

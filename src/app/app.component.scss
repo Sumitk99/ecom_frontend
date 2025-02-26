@@ -1,0 +1,32 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.content {
+  flex: 1;
+  padding: 16px;
+}
+
+.user-menu {
+  display: inline-flex;
+  align-items: center;
+
+  button {
+    text-transform: capitalize;
+  }
+
+  // Optional: Visual cue for hover
+  button:hover {
+    background-color: rgba(255, 255, 255, 0.1); // Subtle hover effect
+  }
+}
+
+mat-menu {
+  min-width: 150px;
+}

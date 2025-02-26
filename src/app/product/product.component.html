@@ -1,0 +1,91 @@
+<div class="product-container">
+    <div *ngIf="loading" class="loading">
+        <p>Loading product details...</p>
+    </div>
+
+    <div *ngIf="error && !loading" class="error">
+        <p>{{error}}</p>
+    </div>
+
+    <mat-card class="product-card" *ngIf="product && !loading && !error">
+        <div class="product-layout">
+            <div class="image-section">
+                <img [src]="product.image_url" [alt]="product.name" class="product-image">
+                <div class="seller-info">
+                    <span class="custom-chip">Sold by: {{product.sellerName}}</span>
+                </div>
+            </div>
+
+            <div class="details-section">
+                <mat-card-header>
+                    <mat-card-title class="product-title">{{product.name}}</mat-card-title>
+                    <mat-card-subtitle>{{product.category}}</mat-card-subtitle>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div class="price-section">
+                        <h2 class="price">${{product.price.toFixed(2)}}</h2>
+                        <div class="inventory">
+                            <mat-icon color="primary">inventory</mat-icon>
+                            <span>{{product.availableQuantity}} units available</span>
+                        </div>
+                    </div>
+
+                    <p class="description">{{product.description}}</p>
+
+                    <div class="selection-section" *ngIf="product.sizes?.length">
+                        <h3>Select Size</h3>
+                        <mat-button-toggle-group [(ngModel)]="selectedSize" name="size" aria-label="Size">
+                            <mat-button-toggle *ngFor="let size of product.sizes" [value]="size">
+                                {{size}}
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+
+                    <div class="selection-section" *ngIf="hasValidColors()">
+                        <h3>Select Color</h3>
+                        <div class="color-options">
+                            <button
+                                    mat-mini-fab
+                                    *ngFor="let color of product.colors"
+                                    [style.background-color]="color.hex"
+                                    [class.selected]="selectedColor.colorName === color.colorName"
+                                    (click)="selectedColor = color">
+                            </button>
+                        </div>
+                        <p class="selected-color" *ngIf="selectedColor.colorName">Selected: {{selectedColor.colorName}}</p>
+                    </div>
+
+                    <div class="quantity-section">
+                        <h3>Quantity</h3>
+                        <div class="quantity-selector">
+                            <button mat-mini-fab color="primary" (click)="decrementQuantity()" [disabled]="isAddedToCart">
+                                <mat-icon>remove</mat-icon>
+                            </button>
+                            <span class="quantity-value">{{quantity}}</span>
+                            <button mat-mini-fab color="primary" (click)="incrementQuantity()" [disabled]="isAddedToCart">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="store-availability">
+                        <h3>Available in Stores</h3>
+                        <div class="chip-container">
+                            <span class="custom-chip" *ngFor="let location of product.locations">{{location}}</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button mat-raised-button color="primary" (click)="addToCart()" [disabled]="isAddedToCart">
+                            <mat-icon>shopping_cart</mat-icon> {{isAddedToCart ? 'Added' : 'Add to Cart'}}
+                        </button>
+                        <button mat-raised-button color="accent" (click)="buyNow()">
+                            <mat-icon>flash_on</mat-icon> Buy Now
+                        </button>
+                    </div>
+                </mat-card-content>
+            </div>
+        </div>
+    </mat-card>
+</div>
