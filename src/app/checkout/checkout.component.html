@@ -1,0 +1,69 @@
+<div class="checkout-container">
+  <h1 class="page-title">Checkout</h1>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <p>Loading checkout details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error">
+    <p>{{error}}</p>
+  </div>
+
+  <!-- Checkout Content -->
+  <div *ngIf="!loading && !error" class="checkout-content">
+    <!-- Section 1: Select Address -->
+    <mat-card class="section-card mat-elevation-z2">
+      <h2>Select Address</h2>
+      <mat-radio-group [(ngModel)]="selectedAddressId" class="address-list">
+        <mat-radio-button *ngFor="let address of addresses" [value]="address.AddressId" class="address-option">
+          <div>
+            <strong>{{address.Name}}</strong><br>
+            {{address.Street}}<span *ngIf="address.ApartmentUnit">, {{address.ApartmentUnit}}</span><br>
+            {{address.City}}, {{address.State}} {{address.ZipCode}}<br>
+            {{address.Country}}<br>
+            Phone: {{address.Phone}}
+          </div>
+        </mat-radio-button>
+      </mat-radio-group>
+      <div *ngIf="addresses.length === 0" class="no-addresses">
+        <p>No addresses available. Please add one in <a routerLink="/addresses">Addresses</a>.</p>
+      </div>
+    </mat-card>
+
+    <!-- Section 2: Select Payment Method -->
+    <mat-card class="section-card mat-elevation-z2">
+      <h2>Select Payment Method</h2>
+      <mat-radio-group [(ngModel)]="selectedPaymentMethod" class="payment-list">
+        <mat-radio-button value="UPI" [disabled]="true">UPI</mat-radio-button>
+        <mat-radio-button value="COD">Cash on Delivery (COD)</mat-radio-button>
+        <mat-radio-button value="Credit Card" [disabled]="true">Credit Card</mat-radio-button>
+        <mat-radio-button value="Debit Card" [disabled]="true">Debit Card</mat-radio-button>
+      </mat-radio-group>
+    </mat-card>
+
+    <!-- Section 3: Cart Items -->
+    <mat-card class="section-card mat-elevation-z2">
+      <h2>Cart Items</h2>
+      <mat-list *ngIf="cart && cart.items.length > 0" class="cart-items">
+        <mat-list-item *ngFor="let item of cart.items" class="cart-item">
+          <img [src]="item.imageURL" [alt]="item.title" class="item-image" matListItemIcon>
+          <div matListItemTitle>{{item.title}}</div>
+          <div matListItemLine>Price: ${{item.price.toFixed(2)}} | Quantity: {{item.quantity}} | Subtotal: ${{(item.price * item.quantity).toFixed(2)}}</div>
+          <div matListItemLine>Seller: {{item.sellerId}}</div>
+        </mat-list-item>
+      </mat-list>
+      <div *ngIf="cart && cart.items.length === 0" class="empty-cart">
+        <p>Your cart is empty. Add items from <a routerLink="/">Products</a>.</p>
+      </div>
+    </mat-card>
+
+    <!-- Section 4: Place Order -->
+    <mat-card class="place-order-card mat-elevation-z2">
+      <button mat-raised-button color="primary" (click)="placeOrder()" [disabled]="!selectedAddressId || !cart || cart.items.length === 0 || !placeOrderButton">
+        Place Order
+      </button>
+      <h2>Total Price: ${{(cart?.totalPrice || 0).toFixed(2)}}</h2>    </mat-card>
+  </div>
+</div>

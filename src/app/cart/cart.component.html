@@ -20,7 +20,11 @@
             <p>Seller: {{item.sellerId}}</p>
             <p>Subtotal: ${{(item.price * item.quantity).toFixed(2)}}</p>
             <div class="quantity-controls">
-              <button mat-icon-button color="primary" (click)="adjustQuantity(item.productId, item.quantity - 1)">
+              <button
+                mat-icon-button color="primary"
+                (click)="adjustQuantity(item.productId, item.quantity - 1)"
+                [disabled]="item.quantity < 2"
+              >
                 <mat-icon>remove</mat-icon>
               </button>
               <span class="quantity">{{item.quantity}}</span>
@@ -39,6 +43,9 @@
     <mat-card class="total-card mat-elevation-z2">
       <mat-card-content>
         <h2>Total Price: ${{cart.totalPrice.toFixed(2)}}</h2>
+        <button mat-raised-button color="primary" (click)="proceedToCheckout()" [disabled]="cart.items.length === 0">
+          Checkout
+        </button>
       </mat-card-content>
     </mat-card>
   </div>

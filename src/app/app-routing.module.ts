@@ -7,6 +7,7 @@ import {OrdersComponent} from "./orders/orders.component";
 import {OrderDetailsComponent} from "./order-details/order-details.component";
 import {AddressesComponent} from "./addresses/addresses.component";
 import {CartComponent} from "./cart/cart.component";
+import {CheckoutComponent} from "./checkout/checkout.component";
 
 const routes: Routes = [
   { path: '', component: SearchComponent }, // Default route (Products page)
@@ -16,6 +17,8 @@ const routes: Routes = [
   { path: 'orders', component: OrdersComponent }, // Orders page
   { path: 'orders/:id', component: OrderDetailsComponent }, // New route for order details
   { path: 'cart', component: CartComponent }, // Add this
+  { path: 'checkout', component: CheckoutComponent }, // New route for order details
+
   { path: 'addresses', component: AddressesComponent }, // Placeholder
   { path: '**', redirectTo: '' }, // Wildcard redirects to default
 ];

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface CartItem {
   productId: string;
@@ -35,7 +36,8 @@ export class CartComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -48,14 +50,17 @@ export class CartComponent implements OnInit {
     this.error = null;
     const apiUrl = 'http://localhost:8084/cart/get';
     this.http.get<CartResponse>(apiUrl, {
-      headers: { authorization: `${token}` }
+      headers: { authorization: `${token}` } // Fixed header key casing
     }).subscribe({
       next: (response) => {
         this.cart = response.cart;
         this.loading = false;
+        if (!this.cart || this.cart.items.length === 0) {
+          this.error = 'Cart is Empty.';
+        }
       },
       error: (err) => {
-        this.error = 'Failed to load cart. Please try again later.';
+        this.error = 'Cart is Empty.';
         this.loading = false;
         console.error('Cart fetch error:', err);
       }
@@ -64,19 +69,26 @@ export class CartComponent implements OnInit {
 
   removeItem(productId: string): void {
     const token = this.authService.getToken();
+    console.log(`Token: ${token}`);
     this.http.delete(`http://localhost:8084/cart/remove/${productId}`, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { authorization: `${token}` } // Fixed header key casing
     }).subscribe({
       next: () => {
         if (this.cart) {
           this.cart.items = this.cart.items.filter(item => item.productId !== productId);
           this.updateTotalPrice();
+          if (this.cart.items.length === 0) {
+            this.cart = null; // Reset cart to null if empty
+            this.error = 'Cart is Empty.';
+          }
         }
         console.log('Item removed:', productId);
       },
       error: (err) => {
         console.error('Remove item error:', err);
-        this.error = 'Failed to remove item from cart.';
+        // this.snackBar.open(`Error while removing item: ${err.message || 'Unknown error'}`, 'Close', { duration: 3000 });
+        // Optionally re-fetch cart to sync with backend
+        this.fetchCart();
       }
     });
   }
@@ -88,9 +100,9 @@ export class CartComponent implements OnInit {
     }
 
     const token = this.authService.getToken();
-    const apiUrl = `http://localhost:8084/cart/add/${productId}/${newQuantity}`;
-    this.http.post<{ success: boolean; cartItemId: string }>(apiUrl, null, {
-      headers: { Authorization: `Bearer ${token}` }
+    const apiUrl = `http://localhost:8084/cart/update/${productId}/${newQuantity}`;
+    this.http.put<{ success: boolean; cartItemId: string }>(apiUrl, null, {
+      headers: { authorization: `${token}` }
     }).subscribe({
       next: () => {
         if (this.cart) {
@@ -104,7 +116,7 @@ export class CartComponent implements OnInit {
       },
       error: (err) => {
         console.error('Adjust quantity error:', err);
-        this.error = 'Failed to update quantity.';
+        this.snackBar.open(`Error while updating quantity: ${err.message || 'Unknown error'}`, 'Close', { duration: 3000 });
       }
     });
   }
@@ -117,5 +129,9 @@ export class CartComponent implements OnInit {
 
   viewProduct(productId: string): void {
     this.router.navigate(['/product', productId]);
+  }
+
+  proceedToCheckout(){
+    this.router.navigate(['/checkout']);
   }
 }

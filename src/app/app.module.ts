@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
-
+import {MatListItem, MatListModule} from '@angular/material/list'; // For cart items list
 import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -31,6 +31,8 @@ import { AddAddressDialogComponent } from './add-address-dialog/add-address-dial
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import {MatRadioModule} from "@angular/material/radio";
 
 const routes: Routes = [
   { path: '', component: SearchComponent }, // Default route to SearchComponent
@@ -48,7 +50,8 @@ const routes: Routes = [
     OrderDetailsComponent,
     AddressesComponent,
     AddAddressDialogComponent,
-    CartComponent
+    CartComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,10 @@ const routes: Routes = [
     MatMenuModule,
     MatTableModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRadioModule,
+    MatListModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

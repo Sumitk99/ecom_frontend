@@ -1,0 +1,144 @@
+.checkout-container {
+  padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #666;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+.checkout-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px;
+
+  h2 {
+    font-size: 20px;
+    color: #1976d2;
+    margin: 0 0 16px;
+  }
+}
+
+.address-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .address-option {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+}
+
+.no-addresses {
+  text-align: center;
+  color: #666;
+
+  a {
+    color: #1976d2;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.payment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  mat-radio-button[disabled] {
+    opacity: 0.5;
+  }
+}
+
+.cart-items {
+  .cart-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+
+    .item-image {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 16px;
+    }
+
+    mat-list-item-title {
+      font-size: 16px;
+      color: #333;
+    }
+
+    mat-list-item-line {
+      font-size: 14px;
+      color: #555;
+    }
+  }
+}
+
+.empty-cart {
+  text-align: center;
+  color: #666;
+
+  a {
+    color: #1976d2;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.place-order-card {
+  background-color: #f5f5f5;
+  text-align: center;
+  padding: 16px;
+
+  button {
+    font-size: 18px;
+    padding: 12px 24px;
+  }
+
+  h2 {
+    font-size: 24px;
+    color: #1976d2;
+    margin: 16px 0 0;
+  }
+
+  button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed; // Change cursor to indicate non-interactivity
+    background-color: #b0bec5; // Optional: Grey out the background
+  }
+}
+
