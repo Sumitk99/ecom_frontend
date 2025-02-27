@@ -21,9 +21,6 @@ export class AppComponent {
       this.userName = this.authService.getUserName();
     });
   }
-  // ngOnInit() {
-  //   this.fetchCartCount()
-  // }
   viewCart(): void {
     this.router.navigate(['/cart']);
   }

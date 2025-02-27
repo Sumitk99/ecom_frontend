@@ -13,7 +13,7 @@
     <div class="items-grid">
       <mat-card *ngFor="let item of cart.items" class="item-card mat-elevation-z2">
         <div class="item-layout">
-          <img [src]="item.imageURL" [alt]="item.title" class="item-image" (click)="viewProduct(item.productId)">
+          <img [src]="item.imageURL" [alt]="item.title" class="holographic-card" (click)="viewProduct(item.productId)">
           <mat-card-content class="item-details">
             <h3 (click)="viewProduct(item.productId)" class="clickable-title">{{item.title}}</h3>
             <p>Price: ${{item.price.toFixed(2)}}</p>

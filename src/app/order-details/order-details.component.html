@@ -30,9 +30,17 @@
         <h3>Products</h3>
         <div class="products-grid">
           <mat-card *ngFor="let product of order.products" class="product-card mat-elevation-z1">
-            <img mat-card-image [src]="product.imageURL" [alt]="product.name" class="product-image">
+            <img
+              mat-card-image
+              [src]="product.imageURL"
+              [alt]="product.name"
+              routerLink="/product/{{product.productId}}"
+              class="product-image">
             <mat-card-content>
-              <p><strong>{{product.name}}</strong></p>
+              <div
+                class="item-title"
+                routerLink="/product/{{product.productId}}"
+              ><strong>{{product.name}}</strong></div>
               <p>Price: ${{product.price.toFixed(2)}}</p>
               <p>Quantity: {{product.quantity}}</p>
             </mat-card-content>

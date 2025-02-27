@@ -87,6 +87,10 @@
     border-bottom: 1px solid #eee;
 
     .item-image {
+      &:hover {
+        opacity: 0.8; // Subtle hover effect
+      }
+      cursor: pointer;
       width: 50px;
       height: 50px;
       object-fit: cover;
@@ -94,14 +98,34 @@
       margin-right: 16px;
     }
 
-    mat-list-item-title {
+    .item-title {
       font-size: 16px;
-      color: #333;
+      color: #1976d2; // Blue to indicate clickable
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
-    mat-list-item-line {
+    mat-line {
       font-size: 14px;
       color: #555;
+    }
+
+    .quantity-controls {
+      display: flex;
+      flex-direction: column; // Stack buttons vertically
+      gap: 8px;
+      margin-top: 8px; // Space above controls
+      align-items: flex-start; // Align buttons to the left under seller
+
+      button {
+        padding: 0;
+      }
+
+      button[disabled] {
+        opacity: 0.5;
+      }
     }
   }
 }
@@ -137,8 +161,7 @@
 
   button[disabled] {
     opacity: 0.5;
-    cursor: not-allowed; // Change cursor to indicate non-interactivity
-    background-color: #b0bec5; // Optional: Grey out the background
+    cursor: not-allowed;
+    background-color: #b0bec5;
   }
 }
-

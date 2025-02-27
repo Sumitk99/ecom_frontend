@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router'; // Import Router
+import { Router } from '@angular/router'; // Ensure Router is imported
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 interface Product {
@@ -27,10 +27,9 @@ export class SearchComponent implements OnInit {
   loading = false;
   error: string | null = null;
 
-  constructor(private http: HttpClient, private router: Router) {} // Inject Router
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    console.log('SearchComponent initialized');
     this.fetchProducts('');
     this.searchControl.valueChanges
       .pipe(debounceTime(300), distinctUntilChanged())
@@ -38,6 +37,7 @@ export class SearchComponent implements OnInit {
         this.fetchProducts(searchTerm || '');
       });
   }
+
   fetchProducts(searchTerm: string): void {
     this.loading = true;
     this.error = null;
@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  viewDetails(productId: string): void {
-    this.router.navigate(['/product', productId]); // Navigate to product page
+  goToProduct(productId: string): void {
+    this.router.navigate(['/product', productId]);
   }
 }

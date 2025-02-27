@@ -26,19 +26,37 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-}
+  cursor: pointer; // Indicate the card is clickable
+  transition: transform 0.2s ease; // Smooth hover effect
 
-.product-image {
-  object-fit: cover;
-  height: 150px;
-}
+  &:hover {
+    transform: scale(1.02); // Slight zoom on hover
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Enhance shadow on hover
+  }
 
-mat-card-content {
-  flex-grow: 1;
-}
+  .product-image {
+    height: 150px; // Fixed height to fit within card
+    width: 100%; // Full width of the card
+    object-fit: contain; // Ensure image fits without cutting off
+    padding: 8px; // Optional padding to avoid edge clipping
+  }
 
-mat-card-actions {
-  text-align: center;
+  mat-card-content {
+    flex-grow: 1;
+    text-align: center;
+
+    h3 {
+      font-size: 16px;
+      margin: 8px 0;
+      color: #333;
+    }
+
+    p {
+      font-size: 14px;
+      color: #555;
+      margin: 4px 0;
+    }
+  }
 }
 
 .no-results {
@@ -59,4 +77,3 @@ mat-card-actions {
     cols: 1;
   }
 }
-
