@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { AddAddressDialogComponent } from '../add-address-dialog/add-address-dialog.component';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 interface Address {
   AddressId: string;
   Street: string;
@@ -29,7 +29,7 @@ export class AddressesComponent implements OnInit {
   loading = true;
   error: string | null = null;
 
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
+  constructor(private http: HttpClient, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.fetchAddresses();
@@ -39,7 +39,7 @@ export class AddressesComponent implements OnInit {
     const token = localStorage.getItem('jwtToken');
     this.loading = true;
     this.error = null;
-    this.http.get<AddressesResponse>('https://micro-scale.software/api/address/get', {
+    this.http.get<AddressesResponse>('http://localhost:8084/address/get', {
       headers: { authorization: `${token}` }
     }).subscribe({
       next: (response) => {
@@ -56,7 +56,8 @@ export class AddressesComponent implements OnInit {
 
   deleteAddress(addressId: string): void {
     const token = localStorage.getItem('jwtToken');
-    this.http.delete(`https://micro-scale.software/api/address/delete/${addressId}`, {
+    this.snackBar.open(`${addressId} should be deleted.`)
+    this.http.delete(`http://localhost:8084/address/delete/${addressId}`, {
       headers: { authorization: `${token}` }
     }).subscribe({
       next: () => {
@@ -65,7 +66,8 @@ export class AddressesComponent implements OnInit {
       },
       error: (err) => {
         console.error('Delete error:', err);
-        this.error = 'Failed to delete address.';
+        this.snackBar.open(`Failed to delete address. ${err}`, 'Close', {duration: 3000});
+
       }
     });
   }
@@ -82,7 +84,7 @@ export class AddressesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const token = localStorage.getItem('jwtToken');
-        this.http.put<Address>(`https://micro-scale.software/api/address/edit/${addressId}`, result, {
+        this.http.put<Address>(`http://localhost:8084/address/edit/${addressId}`, result, {
           headers: { authorization: `${token}` }
         }).subscribe({
           next: (updatedAddress) => {
@@ -94,7 +96,7 @@ export class AddressesComponent implements OnInit {
           },
           error: (err) => {
             console.error('Update address error:', err);
-            this.error = 'Failed to update address.';
+            this.snackBar.open(`Failed to update address. ${err}`, 'Close', {duration: 3000});
           }
         });
       }
@@ -110,7 +112,7 @@ export class AddressesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const token = localStorage.getItem('jwtToken');
-        this.http.post<Address>('https://micro-scale.software/api/address/get', result, {
+        this.http.post<Address>('http://localhost:8084/address/add', result, {
           headers: { authorization: `${token}` }
         }).subscribe({
           next: (newAddress) => {
@@ -119,7 +121,7 @@ export class AddressesComponent implements OnInit {
           },
           error: (err) => {
             console.error('Add address error:', err);
-            this.error = 'Failed to add address.';
+            this.snackBar.open('Failed to add address. Please try again later.', 'Close', {duration: 3000});
           }
         });
       }

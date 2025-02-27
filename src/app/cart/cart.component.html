@@ -15,7 +15,7 @@
         <div class="item-layout">
           <img [src]="item.imageURL" [alt]="item.title" class="holographic-card" (click)="viewProduct(item.productId)">
           <mat-card-content class="item-details">
-            <h3 (click)="viewProduct(item.productId)" class="clickable-title">{{item.title}}</h3>
+            <h3 (click)="viewProduct(item.productId)" class="new">{{item.title}}</h3>
             <p>Price: ${{item.price.toFixed(2)}}</p>
             <p>Seller: {{item.sellerId}}</p>
             <p>Subtotal: ${{(item.price * item.quantity).toFixed(2)}}</p>

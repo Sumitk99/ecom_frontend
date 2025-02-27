@@ -14,17 +14,20 @@
       <h2>Select Address</h2>
       <mat-radio-group [(ngModel)]="selectedAddressId" class="address-list">
         <mat-radio-button *ngFor="let address of addresses" [value]="address.AddressId" class="address-option">
-          <div>
-            <strong>{{address.Name}}</strong><br>
-            {{address.Street}}<span *ngIf="address.ApartmentUnit">, {{address.ApartmentUnit}}</span><br>
-            {{address.City}}, {{address.State}} {{address.ZipCode}}<br>
-            {{address.Country}}<br>
-            Phone: {{address.Phone}}
+          <div class="address-content">
+            <div class="address-details">
+              <strong>{{address.Name}}</strong><br>
+              {{address.Street}}<span *ngIf="address.ApartmentUnit">, {{address.ApartmentUnit}}</span><br>
+              {{address.City}}, {{address.State}} {{address.ZipCode}}<br>
+              {{address.Country}}<br>
+              Phone: {{address.Phone}}
+            </div>
+            <button mat-button color="primary" (click)="editAddress(address.AddressId)">Edit</button>
           </div>
         </mat-radio-button>
       </mat-radio-group>
-      <div *ngIf="addresses.length === 0" class="no-addresses">
-        <p>No addresses available. Please add one in <a routerLink="/addresses">Addresses</a>.</p>
+      <div class="add-address">
+        <button mat-button color="primary" (click)="addAddress()">Add New Address</button>
       </div>
     </mat-card>
 
@@ -48,10 +51,7 @@
             class="item-image"
             routerLink="/product/{{item.productId}}"
             mat-list-icon>
-          <div mat-line
-               class="item-title"
-               routerLink="/product/{{item.productId}}"
-          >{{item.title}}</div>
+          <div mat-line class="title" routerLink="/product/{{item.productId}}">{{item.title}}</div>
           <div mat-line>Price: ${{item.price.toFixed(2)}} | Quantity: {{item.quantity}} | Subtotal: ${{(item.price * item.quantity).toFixed(2)}}</div>
           <div mat-line>Seller: {{item.sellerId}}</div>
           <div mat-line>

@@ -55,19 +55,31 @@
     &:hover {
       background-color: #f5f5f5;
     }
+
+    .address-content {
+      display: flex;
+      justify-content: space-between; // Address details left, Edit button right
+      align-items: center;
+      gap: 16px;
+
+      .address-details {
+        flex-grow: 1; // Take available space
+      }
+
+      button {
+        margin-left: 8px; // Space from address text
+      }
+    }
   }
 }
 
-.no-addresses {
+.add-address {
   text-align: center;
-  color: #666;
+  margin-top: 16px; // Space above the button
 
-  a {
-    color: #1976d2;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
+  button {
+    margin-left: 8px; // Consistent spacing if needed in future inline contexts
+    vertical-align: middle; // Align with potential inline text
   }
 }
 
@@ -88,44 +100,48 @@
 
     .item-image {
       &:hover {
-        opacity: 0.8; // Subtle hover effect
+        opacity: 0.8;
       }
       cursor: pointer;
       width: 50px;
       height: 50px;
-      object-fit: cover;
+      object-fit: contain;
       border-radius: 4px;
       margin-right: 16px;
     }
 
-    .item-title {
-      font-size: 16px;
-      color: #1976d2; // Blue to indicate clickable
+    .title {
       cursor: pointer;
-      &:hover {
-        text-decoration: underline;
+      position: relative;
+      text-decoration: none;
+      font-size: 18px;
+      color: #1976d2;
+      margin: 0 0 8px;
+      width: fit-content;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        border-radius: 4px;
+        background-color: #1976d2;
+        bottom: 0;
+        left: 0;
+        transform-origin: right;
+        transform: scaleX(0);
+        transition: transform .3s ease-in-out;
+      }
+
+      &:hover::before {
+        transform-origin: left;
+        transform: scaleX(1);
       }
     }
 
     mat-line {
       font-size: 14px;
       color: #555;
-    }
-
-    .quantity-controls {
-      display: flex;
-      flex-direction: column; // Stack buttons vertically
-      gap: 8px;
-      margin-top: 8px; // Space above controls
-      align-items: flex-start; // Align buttons to the left under seller
-
-      button {
-        padding: 0;
-      }
-
-      button[disabled] {
-        opacity: 0.5;
-      }
     }
   }
 }
