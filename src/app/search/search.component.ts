@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router'; // Ensure Router is imported
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import {environment} from "../../environments/environment";
 
 interface Product {
   title: string;
@@ -26,7 +27,7 @@ export class SearchComponent implements OnInit {
   products: Product[] = [];
   loading = false;
   error: string | null = null;
-
+  domain: string = environment.domain;
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
@@ -41,7 +42,7 @@ export class SearchComponent implements OnInit {
   fetchProducts(searchTerm: string): void {
     this.loading = true;
     this.error = null;
-    const apiUrl = `http://localhost:8084/products?search=${encodeURIComponent(searchTerm)}`;
+    const apiUrl = `${this.domain}/products?search=${encodeURIComponent(searchTerm)}`;
     this.http.get<SearchResponse>(apiUrl).subscribe({
       next: (response) => {
         this.products = response.products;

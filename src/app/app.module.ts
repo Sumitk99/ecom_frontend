@@ -33,6 +33,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {MatRadioModule} from "@angular/material/radio";
+import {MarkdownModule, MarkedOptions} from "ngx-markdown";
+import { ReadMdComponent } from './read-md/read-md.component';
 
 const routes: Routes = [
   { path: '', component: SearchComponent }, // Default route to SearchComponent
@@ -52,6 +54,7 @@ const routes: Routes = [
     AddAddressDialogComponent,
     CartComponent,
     CheckoutComponent,
+    ReadMdComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,8 +79,16 @@ const routes: Routes = [
     MatDialogModule,
     MatSnackBarModule,
     MatRadioModule,
-    MatListModule
-
+    MatListModule,
+    MarkdownModule.forRoot({
+      markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+          gfm: true, // Enables GitHub Flavored Markdown
+          breaks: true, // Enables line breaks
+        },
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

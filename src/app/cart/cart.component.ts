@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {environment} from "../../environments/environment";
 
 interface CartItem {
   productId: string;
@@ -32,6 +33,7 @@ export class CartComponent implements OnInit {
   cart: Cart | null = null;
   loading = true;
   error: string | null = null;
+  domain: string = environment.domain;
 
   constructor(
     private http: HttpClient,
@@ -48,7 +50,7 @@ export class CartComponent implements OnInit {
     const token = this.authService.getToken();
     this.loading = true;
     this.error = null;
-    const apiUrl = 'http://localhost:8084/cart/get';
+    const apiUrl = `${this.domain}/cart/get`;
     this.http.get<CartResponse>(apiUrl, {
       headers: { authorization: `${token}` } // Fixed header key casing
     }).subscribe({
@@ -70,7 +72,7 @@ export class CartComponent implements OnInit {
   removeItem(productId: string): void {
     const token = this.authService.getToken();
     console.log(`Token: ${token}`);
-    this.http.delete(`http://localhost:8084/cart/remove/${productId}`, {
+    this.http.delete(`${this.domain}/cart/remove/${productId}`, {
       headers: { authorization: `${token}` } // Fixed header key casing
     }).subscribe({
       next: () => {
@@ -100,7 +102,7 @@ export class CartComponent implements OnInit {
     }
 
     const token = this.authService.getToken();
-    const apiUrl = `http://localhost:8084/cart/update/${productId}/${newQuantity}`;
+    const apiUrl = `${this.domain}/cart/update/${productId}/${newQuantity}`;
     this.http.put<{ success: boolean; cartItemId: string }>(apiUrl, null, {
       headers: { authorization: `${token}` }
     }).subscribe({

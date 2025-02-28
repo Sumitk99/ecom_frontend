@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddAddressDialogComponent } from '../add-address-dialog/add-address-dialog.component';
+import {environment} from "../../environments/environment";
 
 interface Address {
   AddressId: string;
@@ -68,6 +69,7 @@ export class CheckoutComponent implements OnInit {
   loading = true;
   error: string | null = null;
   placeOrderButton: boolean = true;
+  domain: string = environment.domain;
 
   constructor(
     private http: HttpClient,
@@ -84,7 +86,7 @@ export class CheckoutComponent implements OnInit {
 
   fetchAddresses(): void {
     const token = this.authService.getToken();
-    this.http.get<AddressesResponse>('http://localhost:8084/address/get', {
+    this.http.get<AddressesResponse>(`${this.domain}/address/get`, {
       headers: { authorization: `${token}` }
     }).subscribe({
       next: (response) => {
@@ -106,7 +108,7 @@ export class CheckoutComponent implements OnInit {
 
   fetchCart(): void {
     const token = this.authService.getToken();
-    this.http.get<CartResponse>('http://localhost:8084/cart/get', {
+    this.http.get<CartResponse>(`${this.domain}/cart/get`, {
       headers: { authorization: `${token}` }
     }).subscribe({
       next: (response) => {
@@ -142,7 +144,7 @@ export class CheckoutComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const token = this.authService.getToken();
-        this.http.put<Address>(`http://localhost:8084/address/update/${addressId}`, result, {
+        this.http.put<Address>(`${this.domain}/address/update/${addressId}`, result, {
           headers: { authorization: `${token}` }
         }).subscribe({
           next: (updatedAddress) => {
@@ -170,7 +172,7 @@ export class CheckoutComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const token = this.authService.getToken();
-        this.http.post<Address>('http://localhost:8084/address/add', result, {
+        this.http.post<Address>(`${this.domain}/address/add`, result, {
           headers: { authorization: `${token}` }
         }).subscribe({
           next: (newAddress) => {
@@ -194,7 +196,7 @@ export class CheckoutComponent implements OnInit {
     }
 
     const token = this.authService.getToken();
-    const apiUrl = `http://localhost:8084/cart/update/${productId}/${newQuantity}`;
+    const apiUrl = `${this.domain}/cart/update/${productId}/${newQuantity}`;
     this.http.put<{ success: boolean; cartItemId: string }>(apiUrl, null, {
       headers: { authorization: `${token}` }
     }).subscribe({
@@ -217,7 +219,7 @@ export class CheckoutComponent implements OnInit {
 
   removeItem(productId: string): void {
     const token = this.authService.getToken();
-    this.http.delete(`http://localhost:8084/cart/remove/${productId}`, {
+    this.http.delete(`${this.domain}/cart/remove/${productId}`, {
       headers: { authorization: `${token}` }
     }).subscribe({
       next: () => {
@@ -259,7 +261,7 @@ export class CheckoutComponent implements OnInit {
     console.log('Checkout Request:', checkoutRequest);
 
     const token = this.authService.getToken();
-    this.http.post<CheckoutResponse>('http://localhost:8084/cart/checkout', checkoutRequest, {
+    this.http.post<CheckoutResponse>(`${this.domain}/cart/checkout`, checkoutRequest, {
       headers: { authorization: `${token}` }
     }).subscribe({
       next: (response) => {

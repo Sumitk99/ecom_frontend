@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import {environment} from "../../environments/environment";
 interface Color {
   colorName: string;
   hex: string;
@@ -38,6 +39,7 @@ export class ProductComponent implements OnInit {
   error: string | null = null;
   isAddedToCart = false;
   isProcessing = false;
+  domain: string = environment.domain;
 
   constructor(
     private http: HttpClient,
@@ -61,7 +63,7 @@ export class ProductComponent implements OnInit {
     const token = this.authService.getToken();
     this.loading = true;
     this.error = null;
-    const apiUrl = `http://localhost:8084/product/${productId}`;
+    const apiUrl = `${this.domain}/product/${productId}`;
     this.http.get<Product>(apiUrl, {
       headers: { authorization: `${token}` }
     }).subscribe({
@@ -121,7 +123,7 @@ export class ProductComponent implements OnInit {
 
       const productId = this.route.snapshot.paramMap.get('id');
       const token = this.authService.getToken();
-      const apiUrl = `http://localhost:8084/cart/add/${productId}/${this.quantity}`;
+      const apiUrl = `${this.domain}/cart/add/${productId}/${this.quantity}`;
 
       this.http.post<{ success: boolean; cartItemId: string }>(apiUrl, null, {
         headers: { authorization: `${token}` }

@@ -1,0 +1,50 @@
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #d6d3d8;
+  color: black;
+  border-radius: 10px;
+  border: 1px solid #404040;
+}
+
+html, body {
+  background-color: #f0f0f0 !important;
+}
+
+.loading {
+  text-align: center;
+  font-style: italic;
+  color: #808080;
+}
+
+.error-message {
+  text-align: center;
+  color: red;
+}
+
+.reload-btn {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #58a6ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reload-btn:hover {
+  background-color: #4078c0;
+}
+
+::ng-deep markdown img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 10px auto;
+  border-radius: 8px; // Optional rounded corners
+}

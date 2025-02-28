@@ -49,6 +49,7 @@
 
   <!-- No Orders -->
   <div *ngIf="!loading && !error && orders.length === 0" class="no-orders">
-    <p>No orders found.</p>
+    <p>No orders placed.</p>
+    <button mat-raised-button color="primary" (click)="startShopping()">Start Shopping</button>
   </div>
 </div>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import {environment} from "../../environments/environment";
 
 interface LoginResponse {
   account: {
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   error: string | null = null;
   hidePassword = true;
+  domain: string = environment.domain;
 
   constructor(
     private fb: FormBuilder,
@@ -34,8 +36,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      email: ['demo@demo.com', [Validators.required, Validators.email]],
+      password: ['demo123', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -52,7 +54,7 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.get('password')?.value
     };
 
-    this.http.post<LoginResponse>('https://micro-scale.software/api/login', loginData).subscribe({
+    this.http.post<LoginResponse>(`${this.domain}/login`, loginData).subscribe({
       next: (response) => {
         this.authService.login(response.JWT_Token, response.Refresh_Token, response.account);
         this.loading = false;

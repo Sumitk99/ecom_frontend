@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { AddAddressDialogComponent } from '../add-address-dialog/add-address-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {environment} from "../../environments/environment";
 interface Address {
   AddressId: string;
   Street: string;
@@ -28,6 +29,7 @@ export class AddressesComponent implements OnInit {
   addresses: Address[] = [];
   loading = true;
   error: string | null = null;
+  domain: string = environment.domain;
 
   constructor(private http: HttpClient, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
@@ -39,7 +41,7 @@ export class AddressesComponent implements OnInit {
     const token = localStorage.getItem('jwtToken');
     this.loading = true;
     this.error = null;
-    this.http.get<AddressesResponse>('http://localhost:8084/address/get', {
+    this.http.get<AddressesResponse>(`${this.domain}/address/get`, {
       headers: { authorization: `${token}` }
     }).subscribe({
       next: (response) => {
@@ -57,7 +59,7 @@ export class AddressesComponent implements OnInit {
   deleteAddress(addressId: string): void {
     const token = localStorage.getItem('jwtToken');
     this.snackBar.open(`${addressId} should be deleted.`)
-    this.http.delete(`http://localhost:8084/address/delete/${addressId}`, {
+    this.http.delete(`${this.domain}/address/delete/${addressId}`, {
       headers: { authorization: `${token}` }
     }).subscribe({
       next: () => {
@@ -84,7 +86,7 @@ export class AddressesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const token = localStorage.getItem('jwtToken');
-        this.http.put<Address>(`http://localhost:8084/address/edit/${addressId}`, result, {
+        this.http.put<Address>(`${this.domain}/address/edit/${addressId}`, result, {
           headers: { authorization: `${token}` }
         }).subscribe({
           next: (updatedAddress) => {
@@ -112,7 +114,7 @@ export class AddressesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const token = localStorage.getItem('jwtToken');
-        this.http.post<Address>('http://localhost:8084/address/add', result, {
+        this.http.post<Address>(`${this.domain}/address/add`, result, {
           headers: { authorization: `${token}` }
         }).subscribe({
           next: (newAddress) => {

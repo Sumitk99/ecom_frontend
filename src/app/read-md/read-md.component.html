@@ -1,0 +1,10 @@
+<div class="container">
+  <div *ngIf="loading" class="loading">Loading README.md...</div>
+
+  <div *ngIf="error" class="error-message">
+    <h3>Error Loading README</h3>
+    <p>{{ error }}</p>
+  </div>
+
+  <markdown *ngIf="!loading && !error" [data]="markdownContent"></markdown>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import {environment} from "../../environments/environment";
 
 interface OrderProduct {
   productId: string;
@@ -49,6 +50,7 @@ export class OrderDetailsComponent implements OnInit {
   order: Order | null = null;
   loading = true;
   error: string | null = null;
+  domain: string = environment.domain;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
@@ -66,7 +68,7 @@ export class OrderDetailsComponent implements OnInit {
     const token = localStorage.getItem('jwtToken');
     this.loading = true;
     this.error = null;
-    const apiUrl = `https://micro-scale.software/api/user/order/${orderId}`;
+    const apiUrl = `${this.domain}/user/order/${orderId}`;
     this.http.get<OrderDetailsResponse>(apiUrl, {
       headers: { authorization: `${token}` }
     }).subscribe({
