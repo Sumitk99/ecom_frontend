@@ -21,7 +21,7 @@
     </div>
 
     <!-- Show Login button if not logged in -->
-    <button mat-button routerLink="/login" *ngIf="!isLoggedIn">Login</button>
+    <button mat-button routerLink="/auth" *ngIf="!isLoggedIn">Login/SignUp</button>
 
     <button mat-icon-button (click)="viewCart()" *ngIf="isLoggedIn">
       <mat-icon [matBadge]="cartItems" matBadgeColor="accent">shopping_cart</mat-icon>

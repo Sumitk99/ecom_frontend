@@ -9,9 +9,11 @@ import {AddressesComponent} from "./addresses/addresses.component";
 import {CartComponent} from "./cart/cart.component";
 import {CheckoutComponent} from "./checkout/checkout.component";
 import {ReadMdComponent} from "./read-md/read-md.component";
+import {AuthComponent} from "./auth/auth.component";
 
 const routes: Routes = [
   { path: '', component: SearchComponent }, // Default route (Products page)
+  { path: 'auth', component: AuthComponent },
   { path: 'login', component: LoginComponent }, // Login page
   { path: 'product/:id', component: ProductComponent }, // Product page
   { path: 'profile', component: SearchComponent }, // Placeholder

@@ -35,6 +35,10 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import {MatRadioModule} from "@angular/material/radio";
 import {MarkdownModule, MarkedOptions} from "ngx-markdown";
 import { ReadMdComponent } from './read-md/read-md.component';
+import { SignupComponent } from './signup/signup.component';
+import { AuthComponent } from './auth/auth.component';
+import {MatSelectModule} from "@angular/material/select";
+import {MatTabsModule} from "@angular/material/tabs";
 
 const routes: Routes = [
   { path: '', component: SearchComponent }, // Default route to SearchComponent
@@ -55,6 +59,8 @@ const routes: Routes = [
     CartComponent,
     CheckoutComponent,
     ReadMdComponent,
+    SignupComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +86,8 @@ const routes: Routes = [
     MatSnackBarModule,
     MatRadioModule,
     MatListModule,
+    MatTabsModule, // Add for tabs
+    MatSelectModule, // Add for dropdown
     MarkdownModule.forRoot({
       markedOptions: {
         provide: MarkedOptions,

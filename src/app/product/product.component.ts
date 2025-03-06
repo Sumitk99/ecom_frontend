@@ -21,7 +21,7 @@ interface Product {
   category: string;
   image_url: string;
   sellerId: string;
-  sellerName: string;
+  seller_name: string;
   stock: string;
 }
 
@@ -124,6 +124,11 @@ export class ProductComponent implements OnInit {
       const productId = this.route.snapshot.paramMap.get('id');
       const token = this.authService.getToken();
       const apiUrl = `${this.domain}/cart/add/${productId}/${this.quantity}`;
+      if (!token) {
+        this.snackBar.open('Please Login or SignUp.', 'Close', { duration: 3000 })
+        this.router.navigate(['/auth']);
+        return
+      }
 
       this.http.post<{ success: boolean; cartItemId: string }>(apiUrl, null, {
         headers: { authorization: `${token}` }
@@ -154,6 +159,13 @@ export class ProductComponent implements OnInit {
     // if (this.isProcessing) return;
     //
     // this.isProcessing = true; // Disable button immediately
+    const token = this.authService.getToken();
+    if (!token) {
+      this.snackBar.open('Please Login or SignUp.', 'Close', { duration: 3000 })
+      this.router.navigate(['/auth']);
+      return
+    }
+
     this.addToCart().then(() => {
       this.router.navigate(['/cart']);
       this.isProcessing = false; // Re-enable buttons after navigation

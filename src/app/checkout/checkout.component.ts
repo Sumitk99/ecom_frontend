@@ -80,6 +80,10 @@ export class CheckoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const token = this.authService.getToken();
+    if (!token) {
+      this.router.navigate(['/auth']);
+    }
     this.fetchAddresses();
     this.fetchCart();
   }
