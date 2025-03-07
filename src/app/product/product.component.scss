@@ -9,6 +9,11 @@
   padding: 24px;
 }
 
+.product-category{
+  margin-top: 5px;
+  margin-left: -16px;
+}
+
 .product-layout {
   display: flex;
   flex-direction: column;
@@ -44,6 +49,7 @@
 }
 
 .product-title {
+  margin-left: -18px;
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 8px;

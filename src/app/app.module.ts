@@ -86,14 +86,14 @@ const routes: Routes = [
     MatSnackBarModule,
     MatRadioModule,
     MatListModule,
-    MatTabsModule, // Add for tabs
-    MatSelectModule, // Add for dropdown
+    MatTabsModule,
+    MatSelectModule,
     MarkdownModule.forRoot({
       markedOptions: {
         provide: MarkedOptions,
         useValue: {
-          gfm: true, // Enables GitHub Flavored Markdown
-          breaks: true, // Enables line breaks
+          gfm: true,
+          breaks: true,
         },
       },
     }),

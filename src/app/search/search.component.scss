@@ -6,12 +6,7 @@
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
-}
-
-.loading {
-  text-align: center;
-  padding: 20px;
-  font-size: 16px;
+  display: block;
 }
 
 .error {
@@ -26,19 +21,19 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  cursor: pointer; // Indicate the card is clickable
-  transition: transform 0.2s ease; // Smooth hover effect
+  cursor: pointer;
+  transition: transform 0.2s ease;
 
   &:hover {
-    transform: scale(1.02); // Slight zoom on hover
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Enhance shadow on hover
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .product-image {
-    height: 150px; // Fixed height to fit within card
-    width: 100%; // Full width of the card
-    object-fit: contain; // Ensure image fits without cutting off
-    padding: 8px; // Optional padding to avoid edge clipping
+    height: 150px;
+    width: 100%;
+    object-fit: contain;
+    padding: 8px;
   }
 
   mat-card-content {
@@ -65,7 +60,69 @@
   font-size: 16px;
 }
 
-// Responsive adjustments
+/* Skeleton Card Styles */
+.skeleton-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  border-radius: 4px; // Default radius when animation ends
+  animation: slideIn 0.5s ease-in-out;
+
+  .skeleton-image {
+    height: 150px;
+    width: 100%;
+    background-color: #e0e0e0;
+    margin-bottom: 8px;
+  }
+
+  .skeleton-content {
+    flex-grow: 1;
+    padding: 8px;
+    text-align: center;
+
+    .skeleton-title {
+      height: 16px;
+      width: 80%;
+      background-color: #e0e0e0;
+      margin: 8px auto;
+      border-radius: 2px;
+    }
+
+    .skeleton-price {
+      height: 14px;
+      width: 50%;
+      background-color: #e0e0e0;
+      margin: 4px auto;
+      border-radius: 2px;
+    }
+
+    .skeleton-seller {
+      height: 14px;
+      width: 60%;
+      background-color: #e0e0e0;
+      margin: 4px auto;
+      border-radius: 2px;
+    }
+  }
+}
+
+/* Left-to-Right Animation with Border Radius */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+    border-radius: 16px; // Larger radius at start
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+    border-radius: 4px; // Matches default radius at end
+  }
+}
+
+/* Responsive Adjustments */
 @media (max-width: 960px) {
   mat-grid-list {
     cols: 2;

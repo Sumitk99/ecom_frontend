@@ -5,14 +5,25 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 
-  <div *ngIf="loading" class="loading">
-    <p>Loading products...</p>
-  </div>
-
   <div *ngIf="error && !loading" class="error">
     <p>{{error}}</p>
   </div>
 
+  <!-- Skeleton Cards during Loading -->
+  <mat-grid-list cols="4" rowHeight="300px" gutterSize="16px" *ngIf="loading">
+    <mat-grid-tile *ngFor="let i of [0,1,2,3]">
+      <div class="skeleton-card">
+        <div class="skeleton-image"></div>
+        <div class="skeleton-content">
+          <div class="skeleton-title"></div>
+          <div class="skeleton-price"></div>
+          <div class="skeleton-seller"></div>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <!-- Product Cards when Loaded -->
   <mat-grid-list cols="4" rowHeight="300px" gutterSize="16px" *ngIf="!loading && !error && products.length > 0">
     <mat-grid-tile *ngFor="let product of products">
       <mat-card class="product-card" (click)="goToProduct(product.productId)">

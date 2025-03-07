@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router'; // Ensure Router is imported
+import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import {environment} from "../../environments/environment";
+import { environment } from '../../environments/environment';
 
 interface Product {
   title: string;
@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit {
   loading = false;
   error: string | null = null;
   domain: string = environment.domain;
+
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
