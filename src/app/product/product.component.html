@@ -1,12 +1,127 @@
 <div class="product-container">
-  <div *ngIf="loading" class="loading">
-    <p>Loading product details...</p>
-  </div>
-
   <div *ngIf="error && !loading" class="error">
     <p>{{error}}</p>
   </div>
 
+  <!-- Skeleton UI during Loading -->
+  <mat-card class="product-card" *ngIf="loading">
+    <div class="product-layout">
+      <div class="image-section skeleton-image-section">
+        <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+          'height': '300px',
+          'width': '100%',
+          'margin-bottom': '20px',
+          'border-radius': '8px'
+        }"></ngx-skeleton-loader>
+        <div class="seller-info">
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+            'height': '20px',
+            'width': '150px',
+            'border-radius': '16px'
+          }"></ngx-skeleton-loader>
+        </div>
+      </div>
+
+      <div class="details-section skeleton-details-section">
+        <mat-card-header>
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+            'height': '28px',
+            'width': '70%',
+            'margin-bottom': '8px'
+          }"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+            'height': '16px',
+            'width': '50%',
+            'margin-bottom': '20px'
+          }"></ngx-skeleton-loader>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="price-section">
+            <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+              'height': '24px',
+              'width': '100px'
+            }"></ngx-skeleton-loader>
+            <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+              'height': '16px',
+              'width': '120px'
+            }"></ngx-skeleton-loader>
+          </div>
+
+          <ngx-skeleton-loader count="3" appearance="line" [theme]="{
+            'height': '16px',
+            'width': '90%',
+            'margin-bottom': '8px'
+          }"></ngx-skeleton-loader>
+
+          <div class="selection-section">
+            <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+              'height': '18px',
+              'width': '80px',
+              'margin-bottom': '12px'
+            }"></ngx-skeleton-loader>
+            <ngx-skeleton-loader count="3" appearance="line" [theme]="{
+              'height': '36px',
+              'width': '60px',
+              'margin-right': '12px'
+            }"></ngx-skeleton-loader>
+          </div>
+
+          <div class="quantity-section">
+            <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+              'height': '18px',
+              'width': '80px',
+              'margin-bottom': '12px'
+            }"></ngx-skeleton-loader>
+            <div class="quantity-selector">
+              <ngx-skeleton-loader count="1" appearance="circle" [theme]="{
+                'height': '40px',
+                'width': '40px',
+                'margin-right': '16px'
+              }"></ngx-skeleton-loader>
+              <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+                'height': '18px',
+                'width': '30px'
+              }"></ngx-skeleton-loader>
+              <ngx-skeleton-loader count="1" appearance="circle" [theme]="{
+                'height': '40px',
+                'width': '40px',
+                'margin-left': '16px'
+              }"></ngx-skeleton-loader>
+            </div>
+          </div>
+
+          <div class="store-availability">
+            <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+              'height': '18px',
+              'width': '120px',
+              'margin-bottom': '12px'
+            }"></ngx-skeleton-loader>
+            <ngx-skeleton-loader count="2" appearance="line" [theme]="{
+              'height': '20px',
+              'width': '100px',
+              'margin-right': '8px',
+              'border-radius': '16px'
+            }"></ngx-skeleton-loader>
+          </div>
+
+          <div class="action-buttons">
+            <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+              'height': '40px',
+              'width': '150px',
+              'margin-right': '16px'
+            }"></ngx-skeleton-loader>
+            <ngx-skeleton-loader count="1" appearance="line" [theme]="{
+              'height': '40px',
+              'width': '150px'
+            }"></ngx-skeleton-loader>
+          </div>
+        </mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+
+  <!-- Actual Product Details when Loaded -->
   <mat-card class="product-card" *ngIf="product && !loading && !error">
     <div class="product-layout">
       <div class="image-section">

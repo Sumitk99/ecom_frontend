@@ -70,8 +70,7 @@ export class ProductComponent implements OnInit {
       next: (data) => {
         this.product = data;
         this.initializeSelections();
-        this.loading = false;
-        console.log
+          this.loading = false;
       },
       error: (err) => {
         this.error = 'Failed to load product data. Please try again later.';
