@@ -39,6 +39,7 @@ import { SignupComponent } from './signup/signup.component';
 import { AuthComponent } from './auth/auth.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatTabsModule} from "@angular/material/tabs";
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 
 const routes: Routes = [
   { path: '', component: SearchComponent }, // Default route to SearchComponent
@@ -97,6 +98,7 @@ const routes: Routes = [
         },
       },
     }),
+    NgxSkeletonLoaderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -47,7 +47,10 @@ export class SearchComponent implements OnInit {
     this.http.get<SearchResponse>(apiUrl).subscribe({
       next: (response) => {
         this.products = response.products;
-        this.loading = false;
+        setTimeout(()=> {
+          this.loading = false;
+
+        }, 30000)
       },
       error: (err) => {
         this.error = 'Failed to load products. Please try again later.';

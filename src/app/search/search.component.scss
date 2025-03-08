@@ -1,7 +1,6 @@
 .search-container {
   padding: 16px;
 }
-
 .search-field {
   width: 100%;
   max-width: 500px;
@@ -70,41 +69,17 @@
   border-radius: 4px; // Default radius when animation ends
   animation: slideIn 0.5s ease-in-out;
 
-  .skeleton-image {
-    height: 150px;
-    width: 100%;
-    background-color: #e0e0e0;
-    margin-bottom: 8px;
-  }
-
   .skeleton-content {
+    background-color: #fff;
+
     flex-grow: 1;
     padding: 8px;
     text-align: center;
+  }
 
-    .skeleton-title {
-      height: 16px;
-      width: 80%;
-      background-color: #e0e0e0;
-      margin: 8px auto;
-      border-radius: 2px;
-    }
-
-    .skeleton-price {
-      height: 14px;
-      width: 50%;
-      background-color: #e0e0e0;
-      margin: 4px auto;
-      border-radius: 2px;
-    }
-
-    .skeleton-seller {
-      height: 14px;
-      width: 60%;
-      background-color: #e0e0e0;
-      margin: 4px auto;
-      border-radius: 2px;
-    }
+  ngx-skeleton-loader {
+    display: block;
+    background-color: #e0e0e0; // Match previous skeleton color
   }
 }
 
@@ -113,12 +88,12 @@
   from {
     transform: translateX(-100%);
     opacity: 0;
-    border-radius: 16px; // Larger radius at start
+    border-radius: 16px; // Larger radius during animation
   }
   to {
     transform: translateX(0);
     opacity: 1;
-    border-radius: 4px; // Matches default radius at end
+    border-radius: 4px; // Default radius when animation ends
   }
 }
 
